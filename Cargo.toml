@@ -1,5 +1,5 @@
 [package]
-name = "the-accountant-game"
+name = "accountant"
 version = "0.0.1"
 authors = [ "woshilapin <woshilapin@tuziwo.info>" ]
 
