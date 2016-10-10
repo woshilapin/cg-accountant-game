@@ -1,8 +1,3 @@
-// mod sniper;
-// mod enemy;
-// mod point;
-// mod game;
-// mod data_point;
 extern crate accountant;
 
 use std::io;
