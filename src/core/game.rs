@@ -100,6 +100,7 @@ impl Game {
             .collect();
         for id_to_remove in ids_to_remove {
             self.enemies.remove(&id_to_remove);
+            self.enemies_dead += 1;
         }
         self.enemies.is_empty()
     }
