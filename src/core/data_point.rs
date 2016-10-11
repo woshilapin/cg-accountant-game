@@ -1,5 +1,6 @@
 use core::point::Point;
 
+#[derive(Debug, Clone)]
 pub struct DataPoint {
 	pub id: usize,
 	pub pos: Point,

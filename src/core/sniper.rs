@@ -1,5 +1,6 @@
 use core::point::{Point, move_towards};
 
+#[derive(Debug, Clone)]
 pub struct Sniper {
 	pub pos: Point,
 }

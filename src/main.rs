@@ -31,15 +31,15 @@ fn game_status(game: &Game) {
 fn main() {
 	let mut game = Game::new(16000, 9000);
 	// PLAY 01
-	// game.add_sniper(1100, 1200);
-	// game.add_enemy(0, 8250, 8999, 10);
-	// game.add_data_point(0, 8250, 4500);
+	game.add_sniper(1100, 1200);
+	game.add_enemy(0, 8250, 8999, 10);
+	game.add_data_point(0, 8250, 4500);
 	// PLAY 02
-	game.add_sniper(5000, 1000);
-	game.add_enemy(0, 3100, 8000, 10);
-	game.add_enemy(1, 14500, 8100, 10);
-	game.add_data_point(0, 950, 7000);
-	game.add_data_point(1, 8000, 7100);
+	// game.add_sniper(5000, 1000);
+	// game.add_enemy(0, 3100, 8000, 10);
+	// game.add_enemy(1, 14500, 8100, 10);
+	// game.add_data_point(0, 950, 7000);
+	// game.add_data_point(1, 8000, 7100);
 
 	while game.status == Status::Running {
 		game.print_status();

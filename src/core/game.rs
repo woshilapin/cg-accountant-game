@@ -5,13 +5,14 @@ use core::sniper::Sniper;
 use core::data_point::DataPoint;
 use core::enemy::Enemy;
 
-#[derive(Debug, PartialEq)]
+#[derive(Debug, PartialEq, Clone)]
 pub enum Status {
 	Running,
 	Ended,
 	GameOver,
 }
 
+#[derive(Debug, Clone)]
 pub struct Game {
 	pub size: Point,
 	pub sniper: Sniper,

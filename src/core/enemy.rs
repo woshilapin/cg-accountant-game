@@ -1,5 +1,6 @@
 use core::point::{Point, distance, move_towards};
 
+#[derive(Debug, Clone)]
 pub struct Enemy {
 	pub id: usize,
 	pub pos: Point,
