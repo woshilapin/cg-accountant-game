@@ -8,8 +8,8 @@ fn test_distance() {
     let point2 = Point::new(100, 0);
     let point3 = Point::new(100, 100);
 
-    assert_eq!(point1.distance(&point1), 0.0);
-    assert_eq!(point1.distance(&point2), 100.0);
+    assert!((point1.distance(&point1) - 0.0).abs() < std::f64::EPSILON);
+    assert!((point1.distance(&point2) - 100.0).abs() < std::f64::EPSILON);
     let d = point1.distance(&point3);
     assert!(d > 141.0 && d < 142.0);
 }

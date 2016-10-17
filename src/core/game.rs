@@ -1,3 +1,4 @@
+use std::f64;
 use std::collections::HashMap;
 
 use core::point::Point;
@@ -49,22 +50,23 @@ impl Game {
 	}
 	pub fn add_enemy(&mut self, id: usize, x: isize, y: isize, life: usize) -> &mut Game {
 		self.enemies.insert(id, Enemy::new(id, x, y, life));
-		self.total_life = self.total_life + life;
+		self.total_life += life;
 		self
 	}
 	pub fn enemies_walk(&mut self) {
-		for (_, enemy) in &mut self.enemies {
+		for enemy in self.enemies.values_mut() {
 			let mut closest_index: usize = match self.data_points.values().next() {
 				Some(dp) => { dp.id }
 				None => { panic!("enemies_walk: There is no data point") }
 			};
 			let mut closest_distance: f64 = self.size.distance(&Point::new(0, 0));
-			for (_, data_point) in &self.data_points {
+			for data_point in self.data_points.values() {
 				let distance = enemy.pos.distance(&data_point.pos);
 				if distance < closest_distance {
 					closest_index = data_point.id;
 					closest_distance = distance;
-				} else if distance == closest_distance && data_point.id < closest_index {
+				} else if (distance - closest_distance).abs() < f64::EPSILON
+					&& data_point.id < closest_index {
 					closest_index = data_point.id;
 				}
 			}
@@ -78,7 +80,7 @@ impl Game {
 		self.sniper.walk(&Point::new(x, y));
 	}
 	pub fn sniper_is_dead(&self) -> bool {
-		for (_, enemy) in &self.enemies {
+		for enemy in self.enemies.values() {
 			if self.sniper.pos.distance(&enemy.pos) <= 2000.0 {
 				return true;
 			}
@@ -96,8 +98,8 @@ impl Game {
 	pub fn enemies_remove(&mut self) -> bool {
 		let ids_to_remove: Vec<usize> = self.enemies
 			.iter()
-			.filter(|&(_, ref e)| e.life == 0)
-			.map(|(k, _)| k.clone())
+			.filter(|&(_, e)| e.life == 0)
+			.map(|(k, _)| *k)
 			.collect();
 		for id_to_remove in ids_to_remove {
 			self.enemies.remove(&id_to_remove);
@@ -106,11 +108,11 @@ impl Game {
 		self.enemies.is_empty()
 	}
 	pub fn data_points_collect(&mut self) -> bool {
-		for (_, enemy) in &self.enemies {
+		for enemy in self.enemies.values() {
 			let ids_to_remove: Vec<usize> = self.data_points
 				.iter()
-				.filter(|&(_, ref dp)| dp.pos == enemy.pos)
-				.map(|(k, _)| k.clone())
+				.filter(|&(_, dp)| dp.pos == enemy.pos)
+				.map(|(k, _)| *k)
 				.collect();
 			for id_to_remove in ids_to_remove {
 				self.data_points.remove(&id_to_remove);
@@ -134,7 +136,7 @@ impl Game {
 		// Step 4: Sniper fires
 		if cmd == "SHOOT" {
 			self.sniper_fire(param1 as usize);
-			self.shots_fired = self.shots_fired + 1;
+			self.shots_fired += 1;
 		}
 		// Step 5
 		let all_enemies_dead = self.enemies_remove();
@@ -156,17 +158,16 @@ impl Game {
 		let s = self.shots_fired;
 		let k = self.enemies_dead;
 		let subtotal = if l > 3*s { l - 3*s } else { 0 };
-		let score = dp * ( 3 * subtotal + 100 ) + 10 * k;
-		score
+		dp * ( 3 * subtotal + 100 ) + 10 * k
 	}
 	pub fn print_status(&self) {
 		println!("{} {}", self.sniper.pos.x, self.sniper.pos.y);
 		println!("{}", self.data_points.len());
-		for (_, data_point) in &self.data_points {
+		for data_point in self.data_points.values() {
 			println!("{} {} {}", data_point.id, data_point.pos.x, data_point.pos.y);
 		}
 		println!("{}", self.enemies.len());
-		for (_, enemy) in &self.enemies {
+		for enemy in self.enemies.values() {
 			if enemy.life != 0 {
 				println!("{} {} {} {}", enemy.id, enemy.pos.x, enemy.pos.y, enemy.life);
 			}

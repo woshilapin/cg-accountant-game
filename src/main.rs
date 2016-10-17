@@ -21,10 +21,10 @@ macro_rules! parse_input {
 
 fn game_status(game: &Game) {
 	print_err!("sniper: {}x{}", game.sniper.pos.x, game.sniper.pos.y);
-	for (_, data_point) in &game.data_points {
+	for data_point in game.data_points.values() {
 		print_err!("data_point #{}: {}x{}", data_point.id, data_point.pos.x, data_point.pos.y);
 	}
-	for (_, enemy) in &game.enemies {
+	for enemy in game.enemies.values() {
 		print_err!("enemy #{}: {}x{} [{}]", enemy.id, enemy.pos.x, enemy.pos.y, enemy.life);
 	}
 	print_err!("shots_fired: {}", game.shots_fired);
@@ -48,14 +48,13 @@ fn main() {
 		game.print_status();
 		let mut input_line = String::new();
 		io::stdin().read_line(&mut input_line).unwrap();
-		let inputs = input_line.split(" ").collect::<Vec<_>>();
-		let cmd =  inputs[0];
+		let inputs = input_line.split(' ').collect::<Vec<_>>();
 		let param1 = parse_input!(inputs[1], isize);
-		if cmd == "SHOOT" {
-			game.game_loop(&cmd, param1, 0);
+		if inputs[0] == "SHOOT" {
+			game.game_loop(inputs[0], param1, 0);
 		} else {
 			let param2 = parse_input!(inputs[2], isize);
-			game.game_loop(&cmd, param1, param2);
+			game.game_loop(inputs[0], param1, param2);
 		}
 		game_status(&game);
 	}
