@@ -1,6 +1,6 @@
 use std::collections::HashMap;
 
-use core::point::{Point, distance};
+use core::point::Point;
 use core::sniper::Sniper;
 use core::data_point::DataPoint;
 use core::enemy::Enemy;
@@ -58,9 +58,9 @@ impl Game {
 				Some(dp) => { dp.id }
 				None => { panic!("enemies_walk: There is no data point") }
 			};
-			let mut closest_distance: f64 = distance(&Point::new(0, 0), &self.size);
+			let mut closest_distance: f64 = self.size.distance(&Point::new(0, 0));
 			for (_, data_point) in &self.data_points {
-				let distance = distance(&enemy.pos, &data_point.pos);
+				let distance = enemy.pos.distance(&data_point.pos);
 				if distance < closest_distance {
 					closest_index = data_point.id;
 					closest_distance = distance;
@@ -79,7 +79,7 @@ impl Game {
 	}
 	pub fn sniper_is_dead(&self) -> bool {
 		for (_, enemy) in &self.enemies {
-			if distance(&self.sniper.pos, &enemy.pos) <= 2000.0 {
+			if self.sniper.pos.distance(&enemy.pos) <= 2000.0 {
 				return true;
 			}
 		}

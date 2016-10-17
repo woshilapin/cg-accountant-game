@@ -1,4 +1,4 @@
-use core::point::{Point, move_towards};
+use core::point::Point;
 
 #[derive(Debug, Clone)]
 pub struct Sniper {
@@ -13,6 +13,6 @@ impl Sniper {
 	}
 	pub fn walk(&mut self, dst_pos: &Point) {
 		const SPEED: isize = 1000;
-		self.pos = move_towards(&self.pos, dst_pos, SPEED);
+		self.pos.move_towards(dst_pos, SPEED);
 	}
 }
