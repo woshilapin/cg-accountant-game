@@ -10,4 +10,7 @@ keywords = ["codingame", "accountant", "rust"]
 license = "GPL-3.0"
 
 [dependencies]
-clippy = "*"
+clippy = { version = "0.0.98", optional = true }
+
+[features]
+lint = ["clippy"]
