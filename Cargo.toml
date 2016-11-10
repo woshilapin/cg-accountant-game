@@ -5,3 +5,7 @@ authors = [ "woshilapin <woshilapin@tuziwo.info>" ]
 
 [dependencies]
 clippy = "*"
+
+[profile.release]
+debug = true
+lto = false
