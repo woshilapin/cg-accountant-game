@@ -28,5 +28,9 @@ after_success: |
     cmake .. &&
     make &&
     cd ../.. &&
-    for file in target/cov target/debug/*_tests-*; do mkdir -p "target/cov/$(basename ${file})"; kcov-master/build/src/kcov --exclude-pattern=/.cargo,/usr/lib --verify "target/cov/$(basename ${file})" "${file}"; done &&
+    for file in target/cov target/debug/*_tests-*
+    do
+        mkdir -p "target/cov/$(basename ${file})"
+        kcov-master/build/src/kcov --exclude-pattern=/.cargo,/usr/lib --verify "target/cov/$(basename ${file})" "${file}"
+    done &&
     bash <(curl -s https://codecov.io/bash)
