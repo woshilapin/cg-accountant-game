@@ -48,3 +48,20 @@ Benchmarks are also available through the following command.
 ```
 cargo bench
 ```
+
+# Linting
+By default, the code is automatically linted through the
+[`clippy`](https://github.com/Manishearth/rust-clippy) plugin when you build the
+project.  However, you may want to run the linting by yourself.  Install the
+Cargo plugin for [`clippy`](https://github.com/Manishearth/rust-clippy) with the
+following command.
+
+```
+cargo install clippy
+```
+
+Then you should be able to run the following command to lint the code.
+
+```
+cargo clippy
+```
