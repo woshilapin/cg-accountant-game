@@ -1,11 +1,13 @@
 [package]
 name = "accountant"
-version = "0.0.1"
+description = "Simulate the game 'The Accountant' of Codingame website"
+version = "0.1.0"
 authors = [ "woshilapin <woshilapin@tuziwo.info>" ]
+publish = false
+repository = "https://github.com/woshilapin/cg-accountant-game"
+readme = "README.md"
+keywords = ["codingame", "accountant", "rust"]
+license = "GPL-3.0"
 
 [dependencies]
 clippy = "*"
-
-[profile.release]
-debug = true
-lto = false
